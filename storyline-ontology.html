@@ -1,0 +1,669 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>A News Storyline Ontology</title>
+    <link href="css/owl.css" rel="stylesheet" type="text/css"/>
+    <link href="css/Primer.css" rel="stylesheet" type="text/css"/>
+    <link href="css/rec.css" rel="stylesheet" type="text/css"/>
+    <link href="css/extra.css" rel="stylesheet" type="text/css"/>
+    <link rel="shortcut icon" href="img/favicon.ico"/>
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/jquery.scrollTo-1.4.2.min.js"></script>
+    <script>
+        $(document).ready(
+                function () {
+                    var list = $('a[name="http://purl.org/ontology/storyline/"]');
+                    if (list.size() != 0) {
+                        var element = list.first();
+                        $.scrollTo(element);
+                    }
+                });
+    </script>
+</head>
+<body>
+<div class="logos">
+    <span><a href="http://www.bbc.co.uk"><img class="logo" src="img/bbc-logo.png" style="margin-bottom:7px;"/></a></span>
+    <span><a href="http://www.guardian.co.uk/"><img class="logo" height="35" src="img/guardian-logo.gif"/></a></span>
+    <span><a href="http://www.pressassociation.com"><img class="logo" height="33" src="img/press-association-logo.png"/></a></span>
+    <span><a href="http://www.ontoba.com"><img class="logo" src="img/ontoba-logo-small.png"/></a></span>
+</div>
+<div class="head"><h1>A News Storyline Ontology</h1>
+    <dl>
+        <dt>IRI:</dt>
+        <dd>http://purl.org/ontology/storyline</dd>
+    </dl>
+    <dl>
+        <dt>Date:</dt>
+        <dd>01 May 2013</dd>
+        <dt>Current version:</dt>
+        <dd>0.2.0</dd>
+    </dl>
+    <dl>
+        <dt>Authors:</dt>
+        <dd><a href="http://uk.linkedin.com/in/paulwilton">Paul Wilton</a></dd>
+        <dd><a href="http://uk.linkedin.com/in/jarredmcginnis">Jarred McGinnis</a></dd>
+        <dd><a href="http://www.bbc.co.uk/blogs/bbcinternet/jeremy_tarling">Jeremy Tarling</a>
+        </dd>
+        <dt>Contributors:</dt>
+        <dd>Matt Chadburn, Sebastien Cevey, Michael Smethurst, Paul Rissen, Helen Lippell, Tom Leitch, Dan Brickley</dd>
+        <dt>Acknowledgements:</dt>
+        <dd>Thanking BBC, Guardian and the Press Association for supporting this work and to the <a href="http://contextus.net/stories">Stories Ontology</a> which provided an excellent starting point and inspiration to build upon.</dd>
+    </dl>
+    <dl>
+        <dt>Download OWL Schema:</dt>
+        <dd><a href="storyline-ontology.ttl">Turtle</a></dd>
+        <dd><a href="storyline-ontology.owl">RDF/XML</a></dd>
+    </dl>
+    <div class="copyright"><p>This ontology is distributed under the <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons SA-3.0 license</a></p></div>
+</div>
+<hr/>
+<div id="toc"><h2>Table of Contents</h2>
+    <ol>
+        <li><a href="#introduction">Introduction</a></li>
+        <li><a href="#classes">Classes</a></li>
+        <li><a href="#objectproperties">Object Properties</a></li>
+        <li><a href="#dataproperties">Data Properties</a></li>
+        <li><a href="#annotationproperties">Annotation Properties</a></li>
+        <li><a href="#namespacedeclarations">Namespace Declarations</a></li>
+    </ol>
+</div>
+<h2 id="introduction">Introduction</h2>
+<p>
+The <b>News Storyline Ontology</b> is a generic model for describing and organising the stories news organisations tell.  The ontology
+is intended to be flexible to support any given news or media publisher's approach to handling news stories. At the heart of the
+ontology, is the concept of <b>Storyline</b>.  As a nuance of the English language the word 'story' has multiple meanings.
+In news organisations, a story can be an individual piece of content, such as an article or news report. It can also be the editorial view on events
+occurring in the world.
+</p>
+<p>
+The journalist pulls together information, facts, opinion, quotes, and data to explain the significance of world events and their context to
+create a narrative. The event is an award being received; the story is the triumph over adversity and personal tragedy of the victor leading up to
+receiving the reward (and the inevitable fall from grace due to drugs and sexual peccadillos). Or, the event is a bombing outside a building; the
+story is an escalating civil war or a gas mains fault due to cost cutting. To avoid this confusion, the term Storyline has been used to remove the
+ambiguity between the piece of creative work (the written article) and the editorial perspective on events.
+</p>
+<p><img width="900" src="img/storyline.png"/></p>
+<p>A Storyline in its most basic form can be an individual, but typically would consist of a richer collection of storyline components. These components exist in slots that can be fully ordered using an index property, ordered temporally, or arranged in a graph to possibly express parallel running developments.</p>
+<p><img src="img/story-slots.png"/></p>
+<p>Storyline components can be indisputable real world events, or other storylines (chapters, sub-plots, updates, news developments etc). Storylines can be associated with Topics in some knowledge domain (eg people, places, organisations).</p>
+<p>As news stories are typically of a subjective nature (one news publisher's interpretation of any given news story may be different from another's), Storylines can be attributed to some agent to provide this provenance.</p>
+<p>The implementation of the Attribution, Topic, and Event classes has been purposely left open so the storyline ontology can be flexibly integrated into existing wider publishing domain models without assumption.</p>
+
+<div id="classes"><h2>Classes</h2>
+    <ul class="hlist">
+        <li><a href="#d4e274" title="http://purl.org/ontology/storyline/Attribution">Attribution</a></li>
+        <li><a href="#d4e289" title="http://purl.org/ontology/storyline/Event">Event</a></li>
+        <li><a href="#d4e305" title="http://purl.org/ontology/storyline/Storyline">Storyline</a></li>
+        <li><a href="#d4e320" title="http://purl.org/ontology/storyline/StorylineComponent">StorylineComponent</a></li>
+        <li><a href="#d4e335" title="http://purl.org/ontology/storyline/StorylineSlot">StorylineSlot</a></li>
+        <li><a href="#d4e370" title="http://www.w3.org/2006/time#TemporalEntity"><span>time:TemporalEntity</span></a>
+        </li>
+        <li><a href="#d4e351" title="http://purl.org/ontology/storyline/Topic">Topic</a></li>
+    </ul>
+    <div id="d4e274" class="entity"><a name="http://purl.org/ontology/storyline/Attribution"></a>
+
+        <h3>Attribution<sup title="class" class="type-c">c</sup><span class="backlink"> back to <a href="#toc">ToC</a> or <a
+                href="#classes">Class ToC</a></span></h3>
+
+        <p><strong>IRI:</strong> http://purl.org/ontology/storyline/Attribution</p>
+        <dl class="definedBy">
+            <dt>is defined by</dt>
+            <dd><a href="http://purl.org/ontology/storyline">http://purl.org/ontology/storyline</a></dd>
+        </dl>
+        <div class="comment"><p>Attribution of a storyline used for attributing the interpretation of the storyline to
+            some agent. An interface class, that doesn't restrict the implementation of an attribution.</p></div>
+        <dl class="description">
+            <dt>has super-classes</dt>
+            <dd>
+                <ul>
+                    <li><span class="dotted" title="http://www.w3.org/2002/07/owl#Thing">owl:Thing</span><sup
+                            title="class" class="type-c">c</sup></li>
+                </ul>
+            </dd>
+        </dl>
+    </div>
+    <div id="d4e289" class="entity"><a name="http://purl.org/ontology/storyline/Event"></a>
+
+        <h3>Event<sup title="class" class="type-c">c</sup><span class="backlink"> back to <a href="#toc">ToC</a> or <a
+                href="#classes">Class ToC</a></span></h3>
+
+        <p><strong>IRI:</strong> http://purl.org/ontology/storyline/Event</p>
+        <dl class="definedBy">
+            <dt>is defined by</dt>
+            <dd><a href="http://purl.org/ontology/storyline">http://purl.org/ontology/storyline</a></dd>
+        </dl>
+        <div class="comment"><p>A newsworthy event. An un-disputable real world event.</p></div>
+        <dl class="description">
+            <dt>has super-classes</dt>
+            <dd>
+                <ul>
+                    <li><a href="#d4e320" title="http://purl.org/ontology/storyline/StorylineComponent">StorylineComponent</a><sup
+                            title="class" class="type-c">c</sup></li>
+                </ul>
+            </dd>
+        </dl>
+    </div>
+    <div id="d4e305" class="entity"><a name="http://purl.org/ontology/storyline/Storyline"></a>
+
+        <h3>Storyline<sup title="class" class="type-c">c</sup><span class="backlink"> back to <a href="#toc">ToC</a> or <a
+                href="#classes">Class ToC</a></span></h3>
+
+        <p><strong>IRI:</strong> http://purl.org/ontology/storyline/Storyline</p>
+        <dl class="definedBy">
+            <dt>is defined by</dt>
+            <dd><a href="http://purl.org/ontology/storyline">http://purl.org/ontology/storyline</a></dd>
+        </dl>
+        <div class="comment"><p>A news storyline.</p></div>
+        <dl class="description">
+            <dt>has super-classes</dt>
+            <dd>
+                <ul>
+                    <li><a href="#d4e320" title="http://purl.org/ontology/storyline/StorylineComponent">StorylineComponent</a><sup
+                            title="class" class="type-c">c</sup></li>
+                </ul>
+            </dd>
+        </dl>
+    </div>
+    <div id="d4e320" class="entity"><a name="http://purl.org/ontology/storyline/StorylineComponent"></a>
+
+        <h3>StorylineComponent<sup title="class" class="type-c">c</sup><span class="backlink"> back to <a href="#toc">ToC</a> or <a
+                href="#classes">Class ToC</a></span></h3>
+
+        <p><strong>IRI:</strong> http://purl.org/ontology/storyline/StorylineComponent</p>
+        <dl class="definedBy">
+            <dt>is defined by</dt>
+            <dd><a href="http://purl.org/ontology/storyline">http://purl.org/ontology/storyline</a></dd>
+        </dl>
+        <div class="comment"><p>An abstract parent class of storyline components.</p></div>
+        <dl class="description">
+            <dt>has super-classes</dt>
+            <dd>
+                <ul>
+                    <li><span class="dotted" title="http://www.w3.org/2002/07/owl#Thing">owl:Thing</span><sup
+                            title="class" class="type-c">c</sup></li>
+                </ul>
+            </dd>
+            <dt>has sub-classes</dt>
+            <dd><a href="#d4e289" title="http://purl.org/ontology/storyline/Event">Event</a><sup title="class"
+                                                                                                 class="type-c">c</sup>,
+                <a href="#d4e305" title="http://purl.org/ontology/storyline/Storyline">Storyline</a><sup title="class"
+                                                                                                         class="type-c">c</sup>
+            </dd>
+        </dl>
+    </div>
+    <div id="d4e335" class="entity"><a name="http://purl.org/ontology/storyline/StorylineSlot"></a>
+
+        <h3>StorylineSlot<sup title="class" class="type-c">c</sup><span class="backlink"> back to <a href="#toc">ToC</a> or <a
+                href="#classes">Class ToC</a></span></h3>
+
+        <p><strong>IRI:</strong> http://purl.org/ontology/storyline/StorylineSlot</p>
+        <dl class="definedBy">
+            <dt>is defined by</dt>
+            <dd><a href="http://purl.org/ontology/storyline">http://purl.org/ontology/storyline</a></dd>
+        </dl>
+        <div class="comment"><p>A storyline slot, used as a container for storyline components.</p></div>
+        <dl class="description">
+            <dt>has super-classes</dt>
+            <dd>
+                <ul>
+                    <li><span class="dotted" title="http://www.w3.org/2002/07/owl#Thing">owl:Thing</span><sup
+                            title="class" class="type-c">c</sup></li>
+                </ul>
+            </dd>
+        </dl>
+    </div>
+    <div id="d4e370" class="entity"><a name="http://www.w3.org/2006/time#TemporalEntity"></a>
+
+        <h3>time:TemporalEntity<sup title="class" class="type-c">c</sup><span class="backlink"> back to <a href="#toc">ToC</a> or <a
+                href="#classes">Class ToC</a></span></h3>
+
+        <p><strong>IRI:</strong> http://www.w3.org/2006/time#TemporalEntity</p>
+        <dl class="description">
+            <dt>has super-classes</dt>
+            <dd>
+                <ul>
+                    <li><span class="dotted" title="http://www.w3.org/2002/07/owl#Thing">owl:Thing</span><sup
+                            title="class" class="type-c">c</sup></li>
+                </ul>
+            </dd>
+        </dl>
+    </div>
+    <div id="d4e351" class="entity"><a name="http://purl.org/ontology/storyline/Topic"></a>
+
+        <h3>Topic<sup title="class" class="type-c">c</sup><span class="backlink"> back to <a href="#toc">ToC</a> or <a
+                href="#classes">Class ToC</a></span></h3>
+
+        <p><strong>IRI:</strong> http://purl.org/ontology/storyline/Topic</p>
+        <dl class="definedBy">
+            <dt>is defined by</dt>
+            <dd><a href="http://purl.org/ontology/storyline">http://purl.org/ontology/storyline</a></dd>
+        </dl>
+        <div class="comment"><p>The topic of a storyline. An interface to some concept in a knowledge domain.</p></div>
+        <dl class="description">
+            <dt>has super-classes</dt>
+            <dd>
+                <ul>
+                    <li><span class="dotted" title="http://www.w3.org/2002/07/owl#Thing">owl:Thing</span><sup
+                            title="class" class="type-c">c</sup></li>
+                </ul>
+            </dd>
+        </dl>
+    </div>
+</div>
+<div id="objectproperties"><h2>Object Properties</h2>
+    <ul class="hlist">
+        <li><a href="#d4e85" title="http://purl.org/ontology/storyline/attributedTo">attributedTo</a></li>
+        <li><a href="#d4e101" title="http://purl.org/ontology/storyline/contains">contains</a></li>
+        <li><a href="#d4e116" title="http://purl.org/ontology/storyline/follows">follows</a></li>
+        <li><a href="#d4e131" title="http://purl.org/ontology/storyline/hasChapter">hasChapter</a></li>
+        <li><a href="#d4e147" title="http://purl.org/ontology/storyline/hasDevelopment">hasDevelopment</a></li>
+        <li><a href="#d4e177" title="http://purl.org/ontology/storyline/hasUpdate">hasUpdate</a></li>
+        <li><a href="#d4e162" title="http://purl.org/ontology/storyline/hasSlot">hasSlot</a></li>
+        <li><a href="#d4e193" title="http://purl.org/ontology/storyline/time">time</a></li>
+        <li><a href="#d4e208" title="http://purl.org/ontology/storyline/topic">topic</a></li>
+    </ul>
+    <div id="d4e85" class="entity"><a name="http://purl.org/ontology/storyline/attributedTo"></a>
+
+        <h3>attributedTo<sup title="object property" class="type-op">op</sup><span class="backlink"> back to <a
+                href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a></span></h3>
+
+        <p><strong>IRI:</strong> http://purl.org/ontology/storyline/attributedTo</p>
+        <dl class="definedBy">
+            <dt>is defined by</dt>
+            <dd><a href="http://purl.org/ontology/storyline">http://purl.org/ontology/storyline</a></dd>
+        </dl>
+        <div class="comment"><p>Associates a storyline to its attribution. Provides for interpretation provenance
+            through attribution</p></div>
+        <div class="description">
+            <dl>
+                <dt>has super-properties</dt>
+                <dd>
+                    <ul>
+                        <li><span class="dotted" title="http://www.w3.org/2002/07/owl#topObjectProperty">owl:topObjectProperty</span><sup
+                                title="object property" class="type-op">op</sup></li>
+                    </ul>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div id="d4e101" class="entity"><a name="http://purl.org/ontology/storyline/contains"></a>
+
+        <h3>contains<sup title="object property" class="type-op">op</sup><span class="backlink"> back to <a href="#toc">ToC</a> or <a
+                href="#objectproperties">Object Property ToC</a></span></h3>
+
+        <p><strong>IRI:</strong> http://purl.org/ontology/storyline/contains</p>
+        <dl class="definedBy">
+            <dt>is defined by</dt>
+            <dd><a href="http://purl.org/ontology/storyline">http://purl.org/ontology/storyline</a></dd>
+        </dl>
+        <div class="comment"><p>Associates a Slot to a StorylineComponent contained therein. Can be a news event or
+            another storyline</p></div>
+        <div class="description">
+            <dl>
+                <dt>has super-properties</dt>
+                <dd>
+                    <ul>
+                        <li><span class="dotted" title="http://www.w3.org/2002/07/owl#topObjectProperty">owl:topObjectProperty</span><sup
+                                title="object property" class="type-op">op</sup></li>
+                    </ul>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div id="d4e116" class="entity"><a name="http://purl.org/ontology/storyline/follows"></a>
+
+        <h3>follows<sup title="object property" class="type-op">op</sup><span class="backlink"> back to <a href="#toc">ToC</a> or <a
+                href="#objectproperties">Object Property ToC</a></span></h3>
+
+        <p><strong>IRI:</strong> http://purl.org/ontology/storyline/follows</p>
+        <dl class="definedBy">
+            <dt>is defined by</dt>
+            <dd><a href="http://purl.org/ontology/storyline">http://purl.org/ontology/storyline</a></dd>
+        </dl>
+        <div class="comment"><p>Allows one or more slots to be sequenced. Slot A follows Slot B.</p></div>
+        <div class="description">
+            <dl>
+                <dt>has super-properties</dt>
+                <dd>
+                    <ul>
+                        <li><span class="dotted" title="http://www.w3.org/2002/07/owl#topObjectProperty">owl:topObjectProperty</span><sup
+                                title="object property" class="type-op">op</sup></li>
+                    </ul>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div id="d4e131" class="entity"><a name="http://purl.org/ontology/storyline/hasChapter"></a>
+
+        <h3>hasChapter<sup title="object property" class="type-op">op</sup><span class="backlink"> back to <a
+                href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a></span></h3>
+
+        <p><strong>IRI:</strong> http://purl.org/ontology/storyline/hasChapter</p>
+        <dl class="definedBy">
+            <dt>is defined by</dt>
+            <dd><a href="http://purl.org/ontology/storyline">http://purl.org/ontology/storyline</a></dd>
+        </dl>
+        <div class="comment"><p>Associates a slot to a storyline as a chapter of an existing storyline.</p></div>
+        <div class="description">
+            <dl>
+                <dt>has super-properties</dt>
+                <dd>
+                    <ul>
+                        <li><a href="#d4e162" title="http://purl.org/ontology/storyline/hasSlot">hasSlot</a><sup
+                                title="object property" class="type-op">op</sup></li>
+                    </ul>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div id="d4e147" class="entity"><a name="http://purl.org/ontology/storyline/hasDevelopment"></a>
+
+        <h3>hasDevelopment<sup title="object property" class="type-op">op</sup><span class="backlink"> back to <a
+                href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a></span></h3>
+
+        <p><strong>IRI:</strong> http://purl.org/ontology/storyline/hasDevelopment</p>
+        <dl class="definedBy">
+            <dt>is defined by</dt>
+            <dd><a href="http://purl.org/ontology/storyline">http://purl.org/ontology/storyline</a></dd>
+        </dl>
+        <div class="comment"><p>Associates a slot to a storyline as a development of an existing storyline.</p></div>
+        <div class="description">
+            <dl>
+                <dt>has super-properties</dt>
+                <dd>
+                    <ul>
+                        <li><a href="#d4e162" title="http://purl.org/ontology/storyline/hasSlot">hasSlot</a><sup
+                                title="object property" class="type-op">op</sup></li>
+                    </ul>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div id="d4e177" class="entity"><a name="http://purl.org/ontology/storyline/hasUpdate"></a>
+
+        <h3>hasUpdate<sup title="object property" class="type-op">op</sup><span class="backlink"> back to <a
+                href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a></span></h3>
+
+        <p><strong>IRI:</strong> http://purl.org/ontology/storyline/hasUpdate</p>
+        <dl class="definedBy">
+            <dt>is defined by</dt>
+            <dd><a href="http://purl.org/ontology/storyline">http://purl.org/ontology/storyline</a></dd>
+        </dl>
+        <div class="comment"><p>Associates a slot to a storyline as an update to an existing storyline.</p></div>
+        <div class="description">
+            <dl>
+                <dt>has super-properties</dt>
+                <dd>
+                    <ul>
+                        <li><a href="#d4e162" title="http://purl.org/ontology/storyline/hasSlot">hasSlot</a><sup
+                                title="object property" class="type-op">op</sup></li>
+                    </ul>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div id="d4e162" class="entity"><a name="http://purl.org/ontology/storyline/hasSlot"></a>
+
+        <h3>hasSlot<sup title="object property" class="type-op">op</sup><span class="backlink"> back to <a href="#toc">ToC</a> or <a
+                href="#objectproperties">Object Property ToC</a></span></h3>
+
+        <p><strong>IRI:</strong> http://purl.org/ontology/storyline/hasSlot</p>
+        <dl class="definedBy">
+            <dt>is defined by</dt>
+            <dd><a href="http://purl.org/ontology/storyline">http://purl.org/ontology/storyline</a></dd>
+        </dl>
+        <div class="comment"><p>Associates a slot to a storyline. A storyline can have many slots</p></div>
+        <div class="description">
+            <dl>
+                <dt>has super-properties</dt>
+                <dd>
+                    <ul>
+                        <li><span class="dotted" title="http://www.w3.org/2002/07/owl#topObjectProperty">owl:topObjectProperty</span><sup
+                                title="object property" class="type-op">op</sup></li>
+                    </ul>
+                </dd>
+                <dt>has sub-properties</dt>
+                <dd><a href="#d4e131" title="http://purl.org/ontology/storyline/hasChapter">hasChapter</a><sup
+                        title="object property" class="type-op">op</sup>, <a href="#d4e147"
+                                                                             title="http://purl.org/ontology/storyline/hasDevelopment">hasDevelopment</a><sup
+                        title="object property" class="type-op">op</sup>, <a href="#d4e177"
+                                                                             title="http://purl.org/ontology/storyline/hasUpdate">hasUpdate</a><sup
+                        title="object property" class="type-op">op</sup></dd>
+            </dl>
+        </div>
+    </div>
+    <div id="d4e193" class="entity"><a name="http://purl.org/ontology/storyline/time"></a>
+
+        <h3>time<sup title="object property" class="type-op">op</sup><span class="backlink"> back to <a
+                href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a></span></h3>
+
+        <p><strong>IRI:</strong> http://purl.org/ontology/storyline/time</p>
+        <dl class="definedBy">
+            <dt>is defined by</dt>
+            <dd><a href="http://purl.org/ontology/storyline">http://purl.org/ontology/storyline</a></dd>
+        </dl>
+        <div class="comment"><p>The time of a slot. A Temporal entity, an instant or an interval. Allows slots to be
+            ordered temporally.</p></div>
+        <div class="description">
+            <dl>
+                <dt>has super-properties</dt>
+                <dd>
+                    <ul>
+                        <li><span class="dotted" title="http://www.w3.org/2002/07/owl#topObjectProperty">owl:topObjectProperty</span><sup
+                                title="object property" class="type-op">op</sup></li>
+                    </ul>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div id="d4e208" class="entity"><a name="http://purl.org/ontology/storyline/topic"></a>
+
+        <h3>topic<sup title="object property" class="type-op">op</sup><span class="backlink"> back to <a
+                href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a></span></h3>
+
+        <p><strong>IRI:</strong> http://purl.org/ontology/storyline/topic</p>
+        <dl class="definedBy">
+            <dt>is defined by</dt>
+            <dd><a href="http://purl.org/ontology/storyline">http://purl.org/ontology/storyline</a></dd>
+        </dl>
+        <div class="comment"><p>Associates a slot to a topic</p></div>
+        <div class="description">
+            <dl>
+                <dt>has super-properties</dt>
+                <dd>
+                    <ul>
+                        <li><span class="dotted" title="http://www.w3.org/2002/07/owl#topObjectProperty">owl:topObjectProperty</span><sup
+                                title="object property" class="type-op">op</sup></li>
+                    </ul>
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+<div id="dataproperties"><h2>Data Properties</h2>
+    <ul class="hlist">
+        <li><a href="#d4e230" title="http://purl.org/ontology/storyline/index">index</a></li>
+        <li><a href="#d4e265"
+               title="http://www.w3.org/2003/06/sw-vocab-status/ns#term_status"><span>ns:term_status</span></a></li>
+        <li><a href="#d4e245" title="http://purl.org/ontology/storyline/synopsis">synopsis</a></li>
+    </ul>
+    <div id="d4e230" class="entity"><a name="http://purl.org/ontology/storyline/index"></a>
+
+        <h3>index<sup title="data property" class="type-dp">dp</sup><span class="backlink"> back to <a
+                href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a></span></h3>
+
+        <p><strong>IRI:</strong> http://purl.org/ontology/storyline/index</p>
+        <dl class="definedBy">
+            <dt>is defined by</dt>
+            <dd><a href="http://purl.org/ontology/storyline">http://purl.org/ontology/storyline</a></dd>
+        </dl>
+        <div class="comment"><p>A slot index. Allows slots to be ordered numerically</p></div>
+        <div class="description">
+            <dl>
+                <dt>has super-properties</dt>
+                <dd>
+                    <ul>
+                        <li><span class="dotted" title="http://www.w3.org/2002/07/owl#topDataProperty">owl:topDataProperty</span><sup
+                                title="data property" class="type-dp">dp</sup></li>
+                    </ul>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div id="d4e265" class="entity"><a name="http://www.w3.org/2003/06/sw-vocab-status/ns#term_status"></a>
+
+        <h3>ns:term_status<sup title="data property" class="type-dp">dp</sup><span class="backlink"> back to <a
+                href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a></span></h3>
+
+        <p><strong>IRI:</strong> http://www.w3.org/2003/06/sw-vocab-status/ns#term_status</p>
+
+        <div class="description">
+            <dl>
+                <dt>has super-properties</dt>
+                <dd>
+                    <ul>
+                        <li><span class="dotted" title="http://www.w3.org/2002/07/owl#topDataProperty">owl:topDataProperty</span><sup
+                                title="data property" class="type-dp">dp</sup></li>
+                    </ul>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div id="d4e245" class="entity"><a name="http://purl.org/ontology/storyline/synopsis"></a>
+
+        <h3>synopsis<sup title="data property" class="type-dp">dp</sup><span class="backlink"> back to <a href="#toc">ToC</a> or <a
+                href="#dataproperties">Data Property ToC</a></span></h3>
+
+        <p><strong>IRI:</strong> http://purl.org/ontology/storyline/synopsis</p>
+        <dl class="definedBy">
+            <dt>is defined by</dt>
+            <dd><a href="http://purl.org/ontology/storyline">http://purl.org/ontology/storyline</a></dd>
+        </dl>
+        <div class="comment"><p>The synopsis of a storyline</p></div>
+        <div class="description">
+            <dl>
+                <dt>has super-properties</dt>
+                <dd>
+                    <ul>
+                        <li><span class="dotted" title="http://www.w3.org/2002/07/owl#topDataProperty">owl:topDataProperty</span><sup
+                                title="data property" class="type-dp">dp</sup></li>
+                    </ul>
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+<div id="annotationproperties"><h2>Annotation Properties</h2>
+    <ul class="hlist">
+        <li><a href="#d4e61" title="http://purl.org/dc/elements/1.1/contributor"><span>dc:contributor</span></a></li>
+        <li><a href="#d4e59" title="http://purl.org/dc/elements/1.1/creator"><span>dc:creator</span></a></li>
+        <li><a href="#d4e66" title="http://purl.org/dc/elements/1.1/date"><span>dc:date</span></a></li>
+        <li><a href="#d4e70" title="http://purl.org/dc/elements/1.1/description"><span>dc:description</span></a></li>
+        <li><a href="#d4e79" title="http://purl.org/dc/elements/1.1/rights"><span>dc:rights</span></a></li>
+        <li><a href="#d4e77" title="http://purl.org/dc/elements/1.1/title"><span>dc:title</span></a></li>
+        <li><a href="#d4e57" title="http://www.w3.org/2002/07/owl#versionInfo"><span>owl:versionInfo</span></a></li>
+        <li><a href="#d4e74" title="http://www.w3.org/2000/01/rdf-schema#comment"><span>rdfs:comment</span></a></li>
+        <li><a href="#d4e64" title="http://www.w3.org/2000/01/rdf-schema#isDefinedBy"><span>rdfs:isDefinedBy</span></a>
+        </li>
+        <li><a href="#d4e68" title="http://www.w3.org/2000/01/rdf-schema#label"><span>rdfs:label</span></a></li>
+        <li><a href="#d4e72" title="http://purl.org/dc/terms/license"><span>terms:license</span></a></li>
+    </ul>
+    <div id="d4e61" class="entity"><a name="http://purl.org/dc/elements/1.1/contributor"></a>
+
+        <h3>dc:contributor<sup title="annotation property" class="type-ap">ap</sup><span class="backlink"> back to <a
+                href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a></span></h3>
+
+        <p><strong>IRI:</strong> http://purl.org/dc/elements/1.1/contributor</p></div>
+    <div id="d4e59" class="entity"><a name="http://purl.org/dc/elements/1.1/creator"></a>
+
+        <h3>dc:creator<sup title="annotation property" class="type-ap">ap</sup><span class="backlink"> back to <a
+                href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a></span></h3>
+
+        <p><strong>IRI:</strong> http://purl.org/dc/elements/1.1/creator</p></div>
+    <div id="d4e66" class="entity"><a name="http://purl.org/dc/elements/1.1/date"></a>
+
+        <h3>dc:date<sup title="annotation property" class="type-ap">ap</sup><span class="backlink"> back to <a
+                href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a></span></h3>
+
+        <p><strong>IRI:</strong> http://purl.org/dc/elements/1.1/date</p></div>
+    <div id="d4e70" class="entity"><a name="http://purl.org/dc/elements/1.1/description"></a>
+
+        <h3>dc:description<sup title="annotation property" class="type-ap">ap</sup><span class="backlink"> back to <a
+                href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a></span></h3>
+
+        <p><strong>IRI:</strong> http://purl.org/dc/elements/1.1/description</p></div>
+    <div id="d4e79" class="entity"><a name="http://purl.org/dc/elements/1.1/rights"></a>
+
+        <h3>dc:rights<sup title="annotation property" class="type-ap">ap</sup><span class="backlink"> back to <a
+                href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a></span></h3>
+
+        <p><strong>IRI:</strong> http://purl.org/dc/elements/1.1/rights</p></div>
+    <div id="d4e77" class="entity"><a name="http://purl.org/dc/elements/1.1/title"></a>
+
+        <h3>dc:title<sup title="annotation property" class="type-ap">ap</sup><span class="backlink"> back to <a
+                href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a></span></h3>
+
+        <p><strong>IRI:</strong> http://purl.org/dc/elements/1.1/title</p></div>
+    <div id="d4e57" class="entity"><a name="http://www.w3.org/2002/07/owl#versionInfo"></a>
+
+        <h3>owl:versionInfo<sup title="annotation property" class="type-ap">ap</sup><span class="backlink"> back to <a
+                href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a></span></h3>
+
+        <p><strong>IRI:</strong> http://www.w3.org/2002/07/owl#versionInfo</p></div>
+    <div id="d4e74" class="entity"><a name="http://www.w3.org/2000/01/rdf-schema#comment"></a>
+
+        <h3>rdfs:comment<sup title="annotation property" class="type-ap">ap</sup><span class="backlink"> back to <a
+                href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a></span></h3>
+
+        <p><strong>IRI:</strong> http://www.w3.org/2000/01/rdf-schema#comment</p></div>
+    <div id="d4e64" class="entity"><a name="http://www.w3.org/2000/01/rdf-schema#isDefinedBy"></a>
+
+        <h3>rdfs:isDefinedBy<sup title="annotation property" class="type-ap">ap</sup><span class="backlink"> back to <a
+                href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a></span></h3>
+
+        <p><strong>IRI:</strong> http://www.w3.org/2000/01/rdf-schema#isDefinedBy</p></div>
+    <div id="d4e68" class="entity"><a name="http://www.w3.org/2000/01/rdf-schema#label"></a>
+
+        <h3>rdfs:label<sup title="annotation property" class="type-ap">ap</sup><span class="backlink"> back to <a
+                href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a></span></h3>
+
+        <p><strong>IRI:</strong> http://www.w3.org/2000/01/rdf-schema#label</p></div>
+    <div id="d4e72" class="entity"><a name="http://purl.org/dc/terms/license"></a>
+
+        <h3>terms:license<sup title="annotation property" class="type-ap">ap</sup><span class="backlink"> back to <a
+                href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a></span></h3>
+
+        <p><strong>IRI:</strong> http://purl.org/dc/terms/license</p></div>
+</div>
+<div id="namespacedeclarations"><h2>Namespace Declarations <span class="backlink"> back to <a href="#toc">ToC</a></span>
+</h2>
+    <dl>
+        <dt><em>default namespace</em></dt>
+        <dd>http://purl.org/ontology/storyline/</dd>
+        <dt>dc</dt>
+        <dd>http://purl.org/dc/elements/1.1/</dd>
+        <dt>ns</dt>
+        <dd>http://www.w3.org/2003/06/sw-vocab-status/ns#</dd>
+        <dt>owl</dt>
+        <dd>http://www.w3.org/2002/07/owl#</dd>
+        <dt>rdf</dt>
+        <dd>http://www.w3.org/1999/02/22-rdf-syntax-ns#</dd>
+        <dt>rdfs</dt>
+        <dd>http://www.w3.org/2000/01/rdf-schema#</dd>
+        <dt>storyline</dt>
+        <dd>http://purl.org/ontology/storyline/</dd>
+        <dt>terms</dt>
+        <dd>http://purl.org/dc/terms/</dd>
+        <dt>time</dt>
+        <dd>http://www.w3.org/2006/time#</dd>
+        <dt>xsd</dt>
+        <dd>http://www.w3.org/2001/XMLSchema#</dd>
+    </dl>
+</div>
+<p class="endnote">This HTML document was obtained by processing the OWL ontology source code through<a
+        href="http://lode.sourceforge.net">LODE</a>, <em>Live OWL Documentation Environment</em>, developed by<a
+        href="http://palindrom.es/phd/whoami/">Silvio Peroni</a>.</p></body>
+</html>
+
+
