@@ -3,4 +3,4 @@ News Storyline Ontology
 
 Source for the News Storyline Ontology
 
-![News Storyline Ontology](img/storyline.jpg)
+![News Storyline Ontology](https://raw.github.com/paulwilton/news-storyline/master/img/storyline.png)
